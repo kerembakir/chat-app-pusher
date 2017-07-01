@@ -4,9 +4,13 @@
   "private": true,
   "dependencies": {
     "auth0-js": "^8.8.0",
+    "body-parser": "^1.17.2",
     "bootstrap": "^3.3.7",
     "events": "^1.1.1",
+    "express": "^4.15.3",
     "history": "^4.6.3",
+    "nodemon": "^1.11.0",
+    "pusher": "^1.5.1",
     "react": "^15.6.1",
     "react-bootstrap": "^0.31.0",
     "react-dom": "^15.6.1",
