@@ -1,29 +1,20 @@
-// imports EventEmitter
 import { EventEmitter } from 'events';
-// imports the Auth0 JS library
 import auth0 from 'auth0-js';
-// imports Auth0 credentials from the auth0-variables.js file
 import { AUTH_CONFIG } from './auth0-variables';
-// imports the history module, which will be created later
 import history from '../history';
 
 export default class Auth extends EventEmitter {
-    // An instance of Auth0 is instantiated with Auth0 credentials gotten from the auth0-variables.js file
   auth0 = new auth0.WebAuth({
     domain: AUTH_CONFIG.domain,
     clientID: AUTH_CONFIG.clientId,
     redirectUri: AUTH_CONFIG.callbackUrl,
     audience: `https://${AUTH_CONFIG.domain}/userinfo`,
-    // Telling Auth0 what to return after a successful authentication, in this case, the token and the id_token
     responseType: 'token id_token',
-    // To retrieve a user's profile after authentication, we need to add openid profile to the the scope.
     scope: 'openid profile'
   });
 
-    // Local variable to hold a user's profile after authentication
   userProfile;
 
-    // The methods below are bound in the constructor with 'this'
   constructor() {
     super();
     this.login = this.login.bind(this);
@@ -40,6 +31,8 @@ export default class Auth extends EventEmitter {
 
   handleAuthentication() {
     this.auth0.parseHash((err, authResult) => {
+      console.log(err)
+      console.log(authResult)
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.setSession(authResult);
         history.replace('/home');
@@ -89,6 +82,7 @@ export default class Auth extends EventEmitter {
     localStorage.removeItem('access_token');
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
+    localStorage.clear()
     this.userProfile = null;
     // navigate to the home route
     history.replace('/home');

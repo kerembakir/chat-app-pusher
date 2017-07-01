@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const app = express();
 const Pusher = require('pusher');
 
-//Initialize Pusher with appId, key and secret
+//initialize Pusher with your appId, key and secret
 const pusher = new Pusher({
     appId: 'APP_ID',
     key: 'APP_KEY',
